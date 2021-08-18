@@ -122,7 +122,7 @@ export class CoverageParser {
 
   async parseFile(xmlFilePath: string): Promise<CoverageParserResult> {
     const xmlData = fs.readFileSync(xmlFilePath, 'utf8')
-    return parse(xmlData)
+    return await this.parseString(xmlData)
   }
 
   async parseString(xmlData: string): Promise<CoverageParserResult> {
