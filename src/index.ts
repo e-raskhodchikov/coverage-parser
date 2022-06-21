@@ -62,23 +62,13 @@ export class CoverageParserResult {
       for (const fileItem of fileItems.sort((a, b) => (a.fileName > b.fileName ? 1 : -1))) {
         const lineCoverage = fileItem.getLineCoverage()
         const branchCoverage = fileItem.getBranchCoverage()
-        const uncoveredLineNumbers = getLineSpans(fileItem.uncoveredLineNumbers)
-        const uncoveredBrancLineNumbers = getLineSpans(fileItem.uncoveredBranchLineNumbers)
 
         const cells: string[] = [
           `<td>&nbsp;&nbsp;${fileItem.fileName}`,
           `<td>${lineCoverage !== undefined ? `${lineCoverage}%` : ''}`,
-          `<td>${
-            fileItem.uncoveredLines > 0
-              ? `<details><summary>${fileItem.uncoveredLines}</summary>${uncoveredLineNumbers}`
-              : ''
-          }`,
+          `<td>${fileItem.uncoveredLines > 0 ? fileItem.uncoveredLines : ''}`,
           `<td>${branchCoverage !== undefined ? `${branchCoverage}%` : ''}`,
-          `<td>${
-            fileItem.uncoveredBranches > 0
-              ? `<details><summary>${fileItem.uncoveredBranches}</summary>${uncoveredBrancLineNumbers}`
-              : ''
-          }`,
+          `<td>${fileItem.uncoveredBranches > 0 ? fileItem.uncoveredBranches : ''}`,
         ]
         rows.push(`<tr>${cells.join('')}`)
       }
@@ -236,27 +226,4 @@ interface IXmlLine {
   number: string
   branch: 'True' | 'False'
   'condition-coverage': string
-}
-
-function getLineSpans(lines: number[]): string {
-  const groups = lines
-    .sort((a, b) => a - b)
-    .reduce((acc: number[][], line) => {
-      const lastGroup = acc[acc.length - 1]
-
-      if (!lastGroup || lastGroup[lastGroup.length - 1] !== line - 1) {
-        acc.push([])
-      }
-
-      acc[acc.length - 1].push(line)
-
-      return acc
-    }, [])
-  return groups
-    .map(function (group) {
-      const firstLine = group[0]
-      const lastLine = group[group.length - 1]
-      return firstLine !== lastLine ? `${firstLine}-${lastLine}` : `${firstLine}`
-    })
-    .join(', ')
 }

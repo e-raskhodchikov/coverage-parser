@@ -56,7 +56,7 @@ Assemblies excluded|Repo.Utilities`)
     expect(result.getCoverageDetails()).toBe(
       `<table>
 <thead><tr><td>Name<td>Line coverage<td>Uncovered<td>Branch coverage<td>Uncovered
-<tbody><tr><td colspan="5">Test/Folder</tr><tr><td>&nbsp;&nbsp;test.cs<td>55%<td><details><summary>5</summary>1-3, 6-7<td>50%<td><tr><td>&nbsp;&nbsp;test2.cs<td>8%<td><td>50%<td><tr><td colspan="5">Test/Another/Folder</tr><tr><td>&nbsp;&nbsp;test3.cs<td><td><td><td></table>`,
+<tbody><tr><td colspan="5">Test/Folder</tr><tr><td>&nbsp;&nbsp;test.cs<td>55%<td>5<td>50%<td><tr><td>&nbsp;&nbsp;test2.cs<td>8%<td><td>50%<td><tr><td colspan="5">Test/Another/Folder</tr><tr><td>&nbsp;&nbsp;test3.cs<td><td><td><td></table>`,
     )
   })
 })
